@@ -1,0 +1,8 @@
+fragment UserResFrag on UserResponse {
+    user {
+      ...UserFrag
+    }
+    errors {
+      ...ErrorFrag
+    }
+}

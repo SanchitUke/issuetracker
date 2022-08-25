@@ -1,0 +1,8 @@
+mutation WriteComment($text: String!) {
+  writeComment(text: $text) {
+    id
+    text
+    commentedBy
+    commentedOn
+  }
+}

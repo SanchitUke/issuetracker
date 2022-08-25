@@ -1,0 +1,7 @@
+mutation CloseIssue {
+  closeIssue {
+    id
+    title
+    status
+  }
+}

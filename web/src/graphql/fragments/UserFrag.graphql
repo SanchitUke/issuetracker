@@ -1,0 +1,5 @@
+fragment UserFrag on Users {
+    userId
+    username
+    email
+}

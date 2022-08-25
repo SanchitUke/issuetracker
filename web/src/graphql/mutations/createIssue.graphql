@@ -1,0 +1,12 @@
+mutation CreateIssue($id: Int!, $priority: String!, $text: String!, $title: String!) {
+  createIssue(id: $id, priority: $priority, text: $text, title: $title) {
+    id
+    title
+    text
+    project {
+      id
+      name
+    }
+    raisedBy
+  }
+}

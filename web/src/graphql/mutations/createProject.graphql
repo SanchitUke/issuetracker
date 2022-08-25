@@ -1,0 +1,10 @@
+mutation createProject($name: String!) {
+  createProject(name: $name) {
+    id
+    name
+    ownerId
+    owner {
+      ...UserFrag
+    }
+  }
+}
