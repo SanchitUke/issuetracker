@@ -4,11 +4,11 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toErrorMap } from "../../utils/toErrorMap";
-import {withApollo} from "../../utils/withApollo";
+// import {withApollo} from "../../utils/withApollo";
 import { useChangePasswordMutation } from "../../graphql/generated/graphql";
 6
 
-const ChangePassword: NextPage = () => {
+const ChangePassword: NextPage/*<unknown, unknown>*/ = () => {
   const router = useRouter();
   const [changePassword] = useChangePasswordMutation();
   const [tokenError, setTokenError] = useState<string | undefined>();
@@ -66,4 +66,4 @@ const ChangePassword: NextPage = () => {
   );
 }
 
-export default withApollo()(ChangePassword);
+export default /*withApollo({ssr: false})(*/ChangePassword//);

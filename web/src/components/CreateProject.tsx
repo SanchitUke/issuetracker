@@ -1,6 +1,5 @@
 import React from 'react'
 import NavBar from './NavBar';
-import { withApollo } from '../utils/withApollo';
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 import { useCreateProjectMutation } from '../graphql/generated/graphql';
 import { useApolloClient } from '@apollo/client';

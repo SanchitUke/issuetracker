@@ -16,6 +16,7 @@ const Projects: React.FC<ProjectsProps> = ({}) => {
             <VStack spacing={5}>
 
             { !data ? <div>loading..</div> : data.userProjects.map((p) => 
+            // eslint-disable-next-line
                 <NextLink href={'/project/[id].tsx'} as={`project/${p.id}`}>
                     <Box as='button'  key={p.id} p={6} rounded="md" w={1000} h="auto" borderWidth={2}>{ p.name }</Box>
                 </NextLink>

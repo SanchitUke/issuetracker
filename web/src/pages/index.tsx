@@ -1,11 +1,12 @@
 import { Box, Button, Center, Divider, Flex, Heading, HStack, Link, Spacer, Text } from "@chakra-ui/react";
-import {withApollo} from "../utils/withApollo";
+// import {withApollo} from "../utils/withApollo";
 import NavBar from "../components/NavBar";
 import { useMeQuery } from "../graphql/generated/graphql";
 import { useIsAuth } from "../utils/useIsAuth";
 import Projects from "../components/Projects";
 import NextLink from 'next/link';
 import CreateProject from "../components/CreateProject";
+// import { withApollo } from "../utils/withApollo";
 
 const Index = () => {
   const {data, loading} = useMeQuery();
@@ -56,4 +57,4 @@ const Index = () => {
   );
 }
 
-export default withApollo({ ssr: true })(Index);
+export default /*withApollo({ ssr: true })(*/Index//);

@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { toErrorMap } from '../utils/toErrorMap';
-import {withApollo} from '../utils/withApollo';
+// import {withApollo} from '../utils/withApollo';
 import { useForgotPasswordMutation } from '../graphql/generated/graphql';
 import login from './login';
 
@@ -54,4 +54,4 @@ const ForgotPassword: React.FC<{}> = ({}) => {
     );
 };
 
-export default withApollo()(ForgotPassword);
+export default /*withApollo()(*/ForgotPassword//);

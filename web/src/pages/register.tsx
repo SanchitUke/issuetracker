@@ -5,7 +5,7 @@ import { Text, Box, Button, ChakraProvider, Checkbox, Flex, FormControl, FormErr
 import { useRegisterMutation } from '../graphql/generated/graphql';
 import { toErrorMap } from '../utils/toErrorMap';
 import { useRouter } from 'next/router';
-import {withApollo} from '../utils/withApollo';
+// import {withApollo} from '../utils/withApollo';
 
 interface registerProps {
 
@@ -114,4 +114,4 @@ const Register: React.FC<registerProps> = ({}) => {
   );
 };
 
-export default withApollo({ ssr: false })(Register);
+export default /*withApollo({ ssr: false })(*/Register//);

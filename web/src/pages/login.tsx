@@ -6,14 +6,11 @@ import { useForgotPasswordMutation, useLoginMutation } from '../graphql/generate
 import { toErrorMap } from '../utils/toErrorMap';
 import { useRouter } from 'next/router';
 import { useApolloClient } from '@apollo/client';
-import {withApollo} from '../utils/withApollo';
+// import {withApollo} from '../utils/withApollo';
 import NextLink from 'next/link';
 
-interface loginProps {
 
-}
-
-const Login: React.FC<loginProps> = ({}) => {
+const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   const [login] = useLoginMutation();
   const [forgotPassword] = useForgotPasswordMutation();
@@ -77,4 +74,4 @@ const Login: React.FC<loginProps> = ({}) => {
   );
 };
 
-export default withApollo({ ssr: false })(Login);
+export default /*withApollo({ ssr: false })(*/Login//);

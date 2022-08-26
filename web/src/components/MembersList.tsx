@@ -19,7 +19,8 @@ const MembersList: React.FC<MembersListProps> = (MembersListProps) => {
           <ModalBody>
             {MembersListProps.memberNames.map((m) => {
               return (
-                <div>{m}</div>
+                // eslint-disable-next-line
+                <div >{m}</div>
               )
             })}
           </ModalBody>

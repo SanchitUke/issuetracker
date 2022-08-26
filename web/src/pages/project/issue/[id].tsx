@@ -5,10 +5,10 @@ import React from 'react'
 import NavBar from '../../../components/NavBar';
 import WriteComment from '../../../components/WriteComment';
 import { useCloseIssueMutation, useIssueQuery, useMeQuery, useWriteCommentMutation } from '../../../graphql/generated/graphql';
-import { withApollo } from '../../../utils/withApollo';
+// import { withApollo } from '../../../utils/withApollo';
 
 
-const Issue = ({}) => {
+const Issue = () => {
   const router = useRouter();
   const intId = typeof router.query.id === 'string'? parseInt(router.query.id) : -1;
   const {data: meData} = useMeQuery();
@@ -72,6 +72,7 @@ const Issue = ({}) => {
       }
       <Heading fontSize={30} mx="auto" mt={10} w={1300}>Discussion</Heading>
       { !data.issue.comments ? <div>loading..</div> : data.issue.comments.map((c) => 
+        // eslint-disable-next-line
         <Flex mx="auto" mt={5} w={1300}>
           <Box w={1300} 
             p={6} 
@@ -98,4 +99,4 @@ const Issue = ({}) => {
   );
 };
 
-export default withApollo()(Issue);
+export default /*withApollo()(*/Issue//);

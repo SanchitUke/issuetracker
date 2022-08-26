@@ -3,7 +3,7 @@ import { Formik, Field } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react'
 import { toErrorMap } from '../../utils/toErrorMap';
-import { withApollo } from '../../utils/withApollo';
+// import { withApollo } from '../../utils/withApollo';
 import login from '../login';
 import NextLink from 'next/link'
 import { useCreateIssueMutation, useUserProjectsQuery } from '../../graphql/generated/graphql';
@@ -107,4 +107,4 @@ const ReportIssue: React.FC<{}> = () => {
   );
 };
 
-export default withApollo()(ReportIssue);
+export default /*withApollo()(*/ReportIssue//);

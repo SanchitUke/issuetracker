@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import NavBar from '../../components/NavBar';
 import { useMeQuery, useProjectQuery } from '../../graphql/generated/graphql';
-import { withApollo } from '../../utils/withApollo';
+// import { withApollo } from '../../utils/withApollo';
 import NextLink from 'next/link'
 import AddMember from '../../components/AddMember';
 import MembersList from '../../components/MembersList';
 
 
-const Project = ({}) => {
+const Project = () => {
   const router = useRouter();
   const {data: meData} = useMeQuery();
   const intId = typeof router.query.id === 'string'? parseInt(router.query.id) : -1;
@@ -76,6 +76,7 @@ const Project = ({}) => {
         <TabPanels>
           <TabPanel>
           { !openIssues ? <div>loading..</div> : openIssues.map((i) => 
+          // eslint-disable-next-line
             <Flex >
               <NextLink 
                 href={{pathname:'project/issue/[id].tsx', query: {projectId: intId}}} 
@@ -106,7 +107,9 @@ const Project = ({}) => {
           )}
           </TabPanel>
           <TabPanel>
+          
           { !closedIssues ? <div>loading..</div> : closedIssues.map((i) => 
+          // eslint-disable-next-line
             <Flex >
               <NextLink 
                 href={{pathname:'project/issue/[id].tsx', query: {projectId: intId}}} 
@@ -138,4 +141,4 @@ const Project = ({}) => {
   );
 };
 
-export default withApollo()(Project);
+export default /*withApollo()(*/Project//);
