@@ -10,11 +10,8 @@ import session from "express-session";
 import Redis from "ioredis";
 import connectRedis from 'connect-redis';
 import { COOKIE_NAME, __prod__ } from "./constants";
-import { Mycontext } from "./types";
 import cors from 'cors';
 import { CommentResolver } from "./resolvers/comment";
-import { Issue } from "./entities/Issue";
-import { Comments } from "./entities/Comments";
 
 const main = async () => {
 

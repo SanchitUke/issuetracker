@@ -98,50 +98,50 @@ export class IssueResolver {
         }
         return issue;
     }
-    @Mutation(() => Boolean)
-    async deleteIssue(@Ctx() {req}: Mycontext) {
-        const issue = await Issue.findOneBy({id: req.session.issueId});
-        const project = await Project.findOneBy({ id: req.session.projectId });
-        if((req.session.userId !== issue?.raisedBy) || req.session.userId !== project?.ownerId) {
-            return false;
-        }
-        await issue?.remove();
-        return true;
-    }
-    @Mutation(() => Issue)
-    async editTitle( 
-        @Arg('title', () => String) title: string,
-        @Ctx() { req }: Mycontext
-    ) {
-        const issue = await Issue.findOneBy({ id: req.session.issueId });
-        if(!issue) {
-            return null;
-        }
-        if(issue.raisedBy !== req.session.userId) {
-            return null;
-        }
-        if(typeof title !== undefined) {
-            issue.title = title;
-            await issue.save();
-        }
-        return issue;
-    }
-    @Mutation(() => Issue)
-    async editText(
-        @Arg('text', () => String) text: string,
-        @Ctx() { req }: Mycontext
-    ) {
-        const issue = await Issue.findOneBy({ id: req.session.issueId });
-        if(!issue) {
-            return null;
-        }
-        if(issue.raisedBy !== req.session.userId) {
-            return null;
-        }
-        if(typeof text !== undefined) {
-            issue.text = text;
-            await issue.save();
-        }
-        return issue;
-    }
+    // @Mutation(() => Boolean)
+    // async deleteIssue(@Ctx() {req}: Mycontext) {
+    //     const issue = await Issue.findOneBy({id: req.session.issueId});
+    //     const project = await Project.findOneBy({ id: req.session.projectId });
+    //     if((req.session.userId !== issue?.raisedBy) || req.session.userId !== project?.ownerId) {
+    //         return false;
+    //     }
+    //     await issue?.remove();
+    //     return true;
+    // }
+    // @Mutation(() => Issue)
+    // async editTitle( 
+    //     @Arg('title', () => String) title: string,
+    //     @Ctx() { req }: Mycontext
+    // ) {
+    //     const issue = await Issue.findOneBy({ id: req.session.issueId });
+    //     if(!issue) {
+    //         return null;
+    //     }
+    //     if(issue.raisedBy !== req.session.userId) {
+    //         return null;
+    //     }
+    //     if(typeof title !== undefined) {
+    //         issue.title = title;
+    //         await issue.save();
+    //     }
+    //     return issue;
+    // }
+    // @Mutation(() => Issue)
+    // async editText(
+    //     @Arg('text', () => String) text: string,
+    //     @Ctx() { req }: Mycontext
+    // ) {
+    //     const issue = await Issue.findOneBy({ id: req.session.issueId });
+    //     if(!issue) {
+    //         return null;
+    //     }
+    //     if(issue.raisedBy !== req.session.userId) {
+    //         return null;
+    //     }
+    //     if(typeof text !== undefined) {
+    //         issue.text = text;
+    //         await issue.save();
+    //     }
+    //     return issue;
+    // }
 }

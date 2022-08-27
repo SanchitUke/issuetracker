@@ -108,49 +108,6 @@ let IssueResolver = class IssueResolver {
             return issue;
         });
     }
-    deleteIssue({ req }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const issue = yield Issue_1.Issue.findOneBy({ id: req.session.issueId });
-            const project = yield Project_1.Project.findOneBy({ id: req.session.projectId });
-            if ((req.session.userId !== (issue === null || issue === void 0 ? void 0 : issue.raisedBy)) || req.session.userId !== (project === null || project === void 0 ? void 0 : project.ownerId)) {
-                return false;
-            }
-            yield (issue === null || issue === void 0 ? void 0 : issue.remove());
-            return true;
-        });
-    }
-    editTitle(title, { req }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const issue = yield Issue_1.Issue.findOneBy({ id: req.session.issueId });
-            if (!issue) {
-                return null;
-            }
-            if (issue.raisedBy !== req.session.userId) {
-                return null;
-            }
-            if (typeof title !== undefined) {
-                issue.title = title;
-                yield issue.save();
-            }
-            return issue;
-        });
-    }
-    editText(text, { req }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const issue = yield Issue_1.Issue.findOneBy({ id: req.session.issueId });
-            if (!issue) {
-                return null;
-            }
-            if (issue.raisedBy !== req.session.userId) {
-                return null;
-            }
-            if (typeof text !== undefined) {
-                issue.text = text;
-                yield issue.save();
-            }
-            return issue;
-        });
-    }
 };
 __decorate([
     (0, type_graphql_1.FieldResolver)(() => Project_1.Project),
@@ -207,29 +164,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], IssueResolver.prototype, "closeIssue", null);
-__decorate([
-    (0, type_graphql_1.Mutation)(() => Boolean),
-    __param(0, (0, type_graphql_1.Ctx)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], IssueResolver.prototype, "deleteIssue", null);
-__decorate([
-    (0, type_graphql_1.Mutation)(() => Issue_1.Issue),
-    __param(0, (0, type_graphql_1.Arg)('title', () => String)),
-    __param(1, (0, type_graphql_1.Ctx)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
-    __metadata("design:returntype", Promise)
-], IssueResolver.prototype, "editTitle", null);
-__decorate([
-    (0, type_graphql_1.Mutation)(() => Issue_1.Issue),
-    __param(0, (0, type_graphql_1.Arg)('text', () => String)),
-    __param(1, (0, type_graphql_1.Ctx)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
-    __metadata("design:returntype", Promise)
-], IssueResolver.prototype, "editText", null);
 IssueResolver = __decorate([
     (0, type_graphql_1.Resolver)(Issue_1.Issue)
 ], IssueResolver);

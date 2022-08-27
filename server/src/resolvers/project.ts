@@ -4,7 +4,6 @@ import { Users } from "../entities/Users";
 import { Mycontext } from "src/types";
 import { isAuth } from "../middleware/isAuth";
 import { dataSource } from "../typeormconfig";
-import { UserResolver } from "./user";
 import { Issue } from "../entities/Issue";
 
 @Resolver(Project)
