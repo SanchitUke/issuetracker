@@ -1,9 +1,10 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { NextPageContext } from "next";
 import { createWithApollo } from "./createWithApollo";
+import { IPADDRESS } from "../../../server/src/constants"
 
 const createClient = (ctx?: NextPageContext) => new ApolloClient({
-    uri: 'http://localhost:4000/graphql',
+    uri: `http://${IPADDRESS}:4000/graphql`,
     // ssrMode:true,
     credentials: "include",
     headers: {

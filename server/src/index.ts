@@ -9,7 +9,7 @@ import { IssueResolver } from "./resolvers/issue";
 import session from "express-session";
 import Redis from "ioredis";
 import connectRedis from 'connect-redis';
-import { COOKIE_NAME, __prod__ } from "./constants";
+import { COOKIE_NAME, IPADDRESS, __prod__ } from "./constants";
 import cors from 'cors';
 import { CommentResolver } from "./resolvers/comment";
 
@@ -18,7 +18,7 @@ const main = async () => {
     await dataSource.initialize();
     const app = express();
     app.set("trust proxy", !__prod__);
-    app.set("Access-Control-Allow-Origin", "http://localhost:3000");
+    app.set("Access-Control-Allow-Origin", `http://${IPADDRESS}:3000`);
     app.set("Access-Control-Allow-Origin", "https://studio.apollographql.com");
     app.set("Access-Control-Allow-Credentials", true);
 
@@ -30,7 +30,7 @@ const main = async () => {
             // origin: "https://studio.apollographql.com",
             // origin: true,
             // origin: "http://localhost:3000", 
-            origin: ["http://localhost:3000", "https://studio.apollographql.com"],
+            origin: [`http://${IPADDRESS}:3000`, "https://studio.apollographql.com"],
             credentials: true
         })
     )
