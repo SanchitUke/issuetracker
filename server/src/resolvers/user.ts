@@ -3,10 +3,11 @@ import { Arg, Ctx, Field, FieldResolver, Int, Mutation, ObjectType, Query, Resol
 import argon2 from 'argon2';
 import { UserInput } from "../util/userInput";
 import { Mycontext } from "../types";
-import { COOKIE_NAME, FORGET_PASSWORD_PREFIX, IPADDRESS } from "../constants";
+import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { sendEmail } from "../util/sendEmail";
 import { v4 } from "uuid";
 import { Project } from "../entities/Project";
+import "dotenv/config";
 
 @ObjectType()
 class FieldError {
@@ -173,7 +174,7 @@ export class UserResolver  {
         await sendEmail(
             email, 
             "Change password",
-            `<a href="http://${IPADDRESS}:3000/change-password/${token}">Reset Password</a>`
+            `<a href="${process.env.FRONTEND_URL}/change-password/${token}">Reset Password</a>`
         );
         return true;
     }

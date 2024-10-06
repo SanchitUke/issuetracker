@@ -51,10 +51,7 @@ export type Mutation = {
   closeIssue: Issue;
   createIssue: Issue;
   createProject: Project;
-  deleteIssue: Scalars['Boolean'];
   deleteProject: Scalars['Boolean'];
-  editText: Issue;
-  editTitle: Issue;
   forgotPassword: Scalars['Boolean'];
   login: UserResponse;
   logout: Scalars['Boolean'];
@@ -84,16 +81,6 @@ export type MutationCreateIssueArgs = {
 
 export type MutationCreateProjectArgs = {
   name: Scalars['String'];
-};
-
-
-export type MutationEditTextArgs = {
-  text: Scalars['String'];
-};
-
-
-export type MutationEditTitleArgs = {
-  title: Scalars['String'];
 };
 
 
@@ -138,6 +125,7 @@ export type Query = {
   oneUser: Users;
   project: Project;
   projects: Array<Project>;
+  searchIssue: Issue;
   userProjects: Array<Project>;
   users: Array<Users>;
 };
@@ -155,6 +143,11 @@ export type QueryOneUserArgs = {
 
 export type QueryProjectArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QuerySearchIssueArgs = {
+  nameSnippet: Scalars['String'];
 };
 
 export type UserInput = {

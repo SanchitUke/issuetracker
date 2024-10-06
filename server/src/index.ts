@@ -9,16 +9,21 @@ import { IssueResolver } from "./resolvers/issue";
 import session from "express-session";
 import Redis from "ioredis";
 import connectRedis from 'connect-redis';
-import { COOKIE_NAME, IPADDRESS, __prod__ } from "./constants";
+import { COOKIE_NAME, FRONTEND_URL, __prod__ } from "./constants";
 import cors from 'cors';
 import { CommentResolver } from "./resolvers/comment";
+import 'dotenv/config';
 
 const main = async () => {
 
     await dataSource.initialize();
     const app = express();
+
+    if(!FRONTEND_URL) {
+        throw new Error("FRONTEND_URL not found")
+    }
     app.set("trust proxy", !__prod__);
-    app.set("Access-Control-Allow-Origin", `http://${IPADDRESS}:3000`);
+    app.set("Access-Control-Allow-Origin", FRONTEND_URL);
     app.set("Access-Control-Allow-Origin", "https://studio.apollographql.com");
     app.set("Access-Control-Allow-Credentials", true);
 
@@ -30,10 +35,14 @@ const main = async () => {
             // origin: "https://studio.apollographql.com",
             // origin: true,
             // origin: "http://localhost:3000", 
-            origin: [`http://${IPADDRESS}:3000`, "https://studio.apollographql.com"],
+            origin: [FRONTEND_URL, "https://studio.apollographql.com"],
             credentials: true
         })
     )
+    const appSecret = process.env.APP_SECRET;
+    if(!appSecret) {
+        throw new Error("APP_SECRET not found");
+    }
     app.use(
         session({
             name: COOKIE_NAME,
@@ -50,7 +59,7 @@ const main = async () => {
                 // secure: true,
                 // sameSite: 'none'
             },
-            secret: "dfryjdfghrer",
+            secret: appSecret,
             resave: false,
         }),
     );
@@ -67,10 +76,10 @@ const main = async () => {
         cors: false
     });
 
-    app.listen(4000, () => {
-        console.log("Server started on local host 4000");
-    })
-   
+    const appPort = parseInt(process.env.APP_PORT!);
+    app.listen(appPort, () => {
+        console.log(`server started on localhost: ${appPort}`);
+    });
 }
 
 main();
