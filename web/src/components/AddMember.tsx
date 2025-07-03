@@ -1,35 +1,36 @@
 import React from 'react'
-import { Button, ButtonGroup, FormControl, FormErrorMessage, FormLabel, IconButton, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import { Button, Field as ChakraField, IconButton, Input, Dialog, useDisclosure, CloseButton } from '@chakra-ui/react';
 import { useAddMemberMutation } from '../graphql/generated/graphql';
 import { useApolloClient } from '@apollo/client';
 import { Field, Formik } from 'formik';
-import { toErrorMap } from '../utils/toErrorMap';
-import { AddIcon } from '@chakra-ui/icons'
-import MembersList from './MembersList';
-
+import { IoMdPersonAdd } from "react-icons/io";
 
 
 const AddMember: React.FC<{}> = ({}) => {
   const [addMember] = useAddMemberMutation();
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { open, onOpen, onClose } = useDisclosure()
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
   const apolloClient = useApolloClient();
   
   return (
     <>    
-      <IconButton aria-label='Add to friends' onClick={onOpen} icon={<AddIcon />} />
+      <IconButton aria-label='Add to friends' onClick={onOpen}  >
+        <IoMdPersonAdd />
+      </IconButton>
       {/* <Button mt={2} size="lg" onClick={onOpen}>Add a member</Button> */}
-      <Modal
+      <Dialog.Root
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
-        isOpen={isOpen}
+        open={open}
         onClose={onClose}
       >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Add a new member to the project</ModalHeader>
-          <ModalCloseButton />
+        <Dialog.Backdrop />
+        <Dialog.Content>
+          <Dialog.Header>Add a new member to the project</Dialog.Header>
+          <Dialog.CloseTrigger>
+            <CloseButton size="sm" />
+          </Dialog.CloseTrigger>
           <Formik
           initialValues={{
             username: ""
@@ -45,9 +46,9 @@ const AddMember: React.FC<{}> = ({}) => {
         >
           {({ handleSubmit, errors, touched, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
-              <ModalBody pb={6}>
-                <FormControl isInvalid={!!errors.username && touched.username}>
-                  <FormLabel htmlFor="username">User Name</FormLabel>
+              <Dialog.Body pb={6}>
+                <ChakraField.Root isInvalid={!!errors.username && touched.username}>
+                  <ChakraField.Label >User Name</ChakraField.Label>
                   <Field
                       as={Input}
                       id="username"
@@ -62,20 +63,20 @@ const AddMember: React.FC<{}> = ({}) => {
                         return error;
                       }}
                     />
-                  <FormErrorMessage>{errors.username}</FormErrorMessage>
-                </FormControl>
-              </ModalBody>
-              <ModalFooter>
-                <Button type="submit" colorScheme='blue' mr={3} isLoading={ isSubmitting } >
+                  <ChakraField.ErrorText>{errors.username}</ChakraField.ErrorText>
+                </ChakraField.Root>
+              </Dialog.Body>
+              <Dialog.Footer>
+                <Button type="submit" colorScheme='blue' mr={3} loading={ isSubmitting } variant={'surface'}>
                   Add
                 </Button>
                 <Button  onClick={onClose}>Cancel</Button>
-              </ModalFooter>
+              </Dialog.Footer>
             </form>
           )}
           </Formik>
-        </ModalContent>
-      </Modal>
+        </Dialog.Content>
+      </Dialog.Root>
     </>
     
   );

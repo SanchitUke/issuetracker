@@ -1,4 +1,4 @@
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import { Button, CloseButton, Dialog, useDisclosure } from '@chakra-ui/react';
 import React from 'react'
 
 interface MembersListProps {
@@ -6,32 +6,34 @@ interface MembersListProps {
 }
 
 const MembersList: React.FC<MembersListProps> = (MembersListProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { open, onOpen, onClose } = useDisclosure()
   return (
     <>
       <Button onClick={onOpen}>Members</Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Project Members</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+      <Dialog.Root open={open} onClose={onClose}>
+        <Dialog.Backdrop />
+        <Dialog.Content>
+          <Dialog.Header>Project Members</Dialog.Header>
+          <Dialog.CloseTrigger>
+            <CloseButton size="sm" />
+          </Dialog.CloseTrigger>
+          <Dialog.Body>
             {MembersListProps.memberNames.map((m) => {
               return (
                 // eslint-disable-next-line
                 <div >{m}</div>
               )
             })}
-          </ModalBody>
+          </Dialog.Body>
 
-          <ModalFooter>
+          <Dialog.Footer>
             <Button colorScheme='blue' mr={3} onClick={onClose}>
               Close
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
     </>
 
   );

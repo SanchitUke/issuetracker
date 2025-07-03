@@ -1,4 +1,3 @@
-import { CheckCircleIcon } from '@chakra-ui/icons';
 import { Flex, Heading, Spacer, Box, Text, Button, Avatar, Icon } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react'
@@ -6,6 +5,7 @@ import NavBar from '../../../components/NavBar';
 import WriteComment from '../../../components/WriteComment';
 import { useCloseIssueMutation, useIssueQuery, useMeQuery, useWriteCommentMutation } from '../../../graphql/generated/graphql';
 // import { withApollo } from '../../../utils/withApollo';
+import { FaRegCircleCheck } from "react-icons/fa6";
 
 
 const Issue = () => {
@@ -34,7 +34,7 @@ const Issue = () => {
         <Spacer />
         { data.issue.status === "open" 
         ? (meData?.me?.userId === data.issue.project.ownerId) 
-          ? <Button size="lg" leftIcon={<CheckCircleIcon color="green" />} onClick={() => closeIssue()}>Close Issue</Button>
+          ? <Button size="lg" onClick={() => closeIssue()}> <FaRegCircleCheck color="green" /> Close Issue</Button>
           : <Button size="lg" variant="outline" fontWeight="bold" >
               <Icon viewBox='0 0 200 200' color='red.500' mr={1} my="auto" >
                 <path
@@ -45,7 +45,9 @@ const Issue = () => {
               Open
             </Button>
         : <Button size="lg" variant="outline" fontWeight="bold" >
-          <CheckCircleIcon mr={2} />
+          <Icon mr={2}>
+            <FaRegCircleCheck />
+          </Icon>
           Closed
           </Button>
         }
@@ -82,7 +84,9 @@ const Issue = () => {
             textAlign="left"
           >
             <Flex>
-            <Avatar />
+            <Avatar.Root>
+              <Avatar.Fallback />
+            </Avatar.Root>
             <Box ml={5}>
             <Text fontWeight="bold">{c.commentedBy}</Text>
             <Text color="gray.500">{c.commentedOn}</Text>

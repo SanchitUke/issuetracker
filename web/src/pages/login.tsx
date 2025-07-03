@@ -1,7 +1,6 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
-import { Text, Box, Button, ChakraProvider, Flex, FormControl, FormErrorMessage, FormLabel, 
-  Input, VStack, Link } from '@chakra-ui/react';
+import { Text, Box, Button, Flex, Input, VStack, Link as ChakraLink, Field as ChakraField } from '@chakra-ui/react';
 import { useForgotPasswordMutation, useLoginMutation } from '../graphql/generated/graphql';
 import { toErrorMap } from '../utils/toErrorMap';
 import { useRouter } from 'next/router';
@@ -36,9 +35,9 @@ const Login: React.FC<{}> = ({}) => {
           {({ handleSubmit, errors, touched, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
               <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={240}>
-                <VStack spacing={10} align="flex-start">
-                  <FormControl isInvalid={!!errors.usernameOrEmail && touched.usernameOrEmail}>
-                    <FormLabel htmlFor="usernameOrEmail">Username or Email ID</FormLabel>
+                <VStack gap={10} align="flex-start">
+                  <ChakraField.Root isInvalid={!!errors.usernameOrEmail && touched.usernameOrEmail}>
+                    <ChakraField.Label>Username or Email ID</ChakraField.Label>
                     <Field
                       as={Input}
                       id="usernameOrEmail"
@@ -46,10 +45,10 @@ const Login: React.FC<{}> = ({}) => {
                       type="username"
                       variant="filled"
                     />
-                    <FormErrorMessage>{errors.usernameOrEmail}</FormErrorMessage>
-                  </FormControl>
-                  <FormControl isInvalid={!!errors.password && touched.password}>
-                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <ChakraField.ErrorText>{errors.usernameOrEmail}</ChakraField.ErrorText>
+                  </ChakraField.Root>
+                  <ChakraField.Root isInvalid={!!errors.password && touched.password}>
+                    <ChakraField.Label>Password</ChakraField.Label>
                     <Field
                       as={Input}
                       id="password"
@@ -57,12 +56,10 @@ const Login: React.FC<{}> = ({}) => {
                       type="password"
                       variant="filled"
                     />
-                    <FormErrorMessage>{errors.password}</FormErrorMessage>
-                  </FormControl>
-                  <NextLink href='/forgot-password'>
-                    <Link>Forgot Password?</Link>
-                  </NextLink>
-                  <Button type="submit" colorScheme="purple" width="full" isLoading={ isSubmitting }>
+                    <ChakraField.ErrorText>{errors.password}</ChakraField.ErrorText>
+                  </ChakraField.Root>
+                  <ChakraLink as={NextLink} href = '/forgot-password'>Forgot Password?</ChakraLink>
+                  <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
                     Submit
                   </Button>
                 </VStack>

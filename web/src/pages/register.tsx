@@ -1,7 +1,6 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
-import { Text, Box, Button, ChakraProvider, Checkbox, Flex, FormControl, FormErrorMessage, FormLabel, 
-  Input, VStack } from '@chakra-ui/react';
+import { Text, Box, Button, Flex, Field as ChakraField, Input, VStack } from '@chakra-ui/react';
 import { useRegisterMutation } from '../graphql/generated/graphql';
 import { toErrorMap } from '../utils/toErrorMap';
 import { useRouter } from 'next/router';
@@ -35,9 +34,9 @@ const Register: React.FC<registerProps> = ({}) => {
             {({ handleSubmit, errors, touched, isSubmitting }) => (
               <form onSubmit={handleSubmit}>
                 <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={240}>
-                  <VStack spacing={10} align="flex-start">
-                    <FormControl isInvalid={!!errors.username && touched.username}>
-                      <FormLabel htmlFor="username">Username</FormLabel>
+                  <VStack gap={10} align="flex-start">
+                    <ChakraField.Root isInvalid={!!errors.username && touched.username}>
+                      <ChakraField.Label >Username</ChakraField.Label>
                       <Field
                         as={Input}
                         id="username"
@@ -57,10 +56,10 @@ const Register: React.FC<registerProps> = ({}) => {
                           return error;
                         }}
                       />
-                      <FormErrorMessage>{errors.username}</FormErrorMessage>
-                    </FormControl>
-                    <FormControl isInvalid={!!errors.email && touched.email}>
-                      <FormLabel htmlFor="email">Email Address</FormLabel>
+                      <ChakraField.ErrorText>{errors.username}</ChakraField.ErrorText>
+                    </ChakraField.Root>
+                    <ChakraField.Root isInvalid={!!errors.email && touched.email}>
+                      <ChakraField.Label>Email Address</ChakraField.Label>
                       <Field
                         as={Input}
                         id="email"
@@ -77,10 +76,10 @@ const Register: React.FC<registerProps> = ({}) => {
                           return error;
                         }}
                       />
-                      <FormErrorMessage>{errors.email}</FormErrorMessage>
-                    </FormControl>
-                    <FormControl isInvalid={!!errors.password && touched.password}>
-                      <FormLabel htmlFor="password">Password</FormLabel>
+                      <ChakraField.ErrorText>{errors.email}</ChakraField.ErrorText>
+                    </ChakraField.Root>
+                    <ChakraField.Root isInvalid={!!errors.password && touched.password}>
+                      <ChakraField.Label>Password</ChakraField.Label>
                       <Field
                         as={Input}
                         id="password"
@@ -97,9 +96,9 @@ const Register: React.FC<registerProps> = ({}) => {
                           return error;
                         }}
                       />
-                      <FormErrorMessage>{errors.password}</FormErrorMessage>
-                    </FormControl>
-                    <Button type="submit" colorScheme="purple" width="full" isLoading={ isSubmitting }>
+                      <ChakraField.ErrorText>{errors.password}</ChakraField.ErrorText>
+                    </ChakraField.Root>
+                    <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
                       Submit
                     </Button>
                   </VStack>

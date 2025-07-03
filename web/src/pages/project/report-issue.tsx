@@ -1,4 +1,4 @@
-import { Flex, VStack, FormControl, FormLabel, Input, FormErrorMessage, Button, Text, Box, Link, Textarea, Select } from '@chakra-ui/react';
+import { Flex, VStack, Field as ChakraField, Input, Button, Text, Box, Link, Textarea, Select } from '@chakra-ui/react';
 import { Formik, Field } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react'
@@ -27,7 +27,7 @@ const ReportIssue: React.FC<{}> = () => {
       <>
         <div>Unauthorized access</div>
         <NextLink href={"/"}>
-          <Button variant="link">Click here to go back to home page</Button>
+          <Button variant="outline">Click here to go back to home page</Button>
         </NextLink>
       </>
     );
@@ -58,9 +58,9 @@ const ReportIssue: React.FC<{}> = () => {
           {({ handleSubmit, errors, touched, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
               <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={240}>
-                <VStack spacing={10} align="flex-start">
-                  <FormControl isRequired>
-                    <FormLabel htmlFor="title">Title</FormLabel>
+                <VStack gap={10} align="flex-start">
+                  <ChakraField.Root isRequired>
+                    <ChakraField.Label>Title</ChakraField.Label>
                     <Field
                       as={Input}
                       id="title"
@@ -68,9 +68,9 @@ const ReportIssue: React.FC<{}> = () => {
                       type="title"
                       variant="filled"
                     />
-                  </FormControl>
-                  <FormControl >
-                    <FormLabel htmlFor="text">Text</FormLabel>
+                  </ChakraField.Root>
+                  <ChakraField.Root >
+                    <ChakraField.Label>Text</ChakraField.Label>
                     <Field
                       as={Textarea}
                       id="text"
@@ -78,9 +78,9 @@ const ReportIssue: React.FC<{}> = () => {
                       type="text"
                       variant="filled"
                     />
-                  </FormControl>
-                  <FormControl isRequired>
-                    <FormLabel>Priority</FormLabel>
+                  </ChakraField.Root>
+                  <ChakraField.Root isRequired>
+                    <ChakraField.Label>Priority</ChakraField.Label>
                     <Field
                       as={Select}
                       id="priority"
@@ -94,8 +94,8 @@ const ReportIssue: React.FC<{}> = () => {
                       <option>high</option>
                     </Field>
                       
-                  </FormControl>
-                  <Button type="submit" colorScheme="purple" width="full" isLoading={ isSubmitting }>
+                  </ChakraField.Root>
+                  <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
                     Submit
                   </Button>
                 </VStack>

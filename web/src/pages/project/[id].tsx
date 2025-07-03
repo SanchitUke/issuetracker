@@ -1,5 +1,4 @@
-import {Tag, Box, Button, ButtonGroup, Flex, Heading, IconButton, Spacer, Tab, TabList, 
-  TabPanel, TabPanels, Tabs, Text, VStack } from '@chakra-ui/react';
+import {Tag, Box, Button, ButtonGroup, Flex, Heading, Spacer, Tabs, Text, Link as ChakraLink } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react'
 import NavBar from '../../components/NavBar';
@@ -47,15 +46,17 @@ const Project = () => {
       <Flex mx="auto" mt={5} w={1300}>
         <Heading fontSize={45} >{data?.project.name}</Heading>
         <Spacer />
-        <ButtonGroup ml={4} mt={2} size="lg" isAttached variant='outline'>
+        <ButtonGroup ml={4} mt={2} size="lg" attached variant='outline'>
           <MembersList memberNames={memNames} />
           {(meData?.me?.userId === data.project.ownerId) 
           ? <AddMember /> 
           : null }
         </ButtonGroup>
+        {/* <ChakraLink as={NextLink} href ={{pathname:"/project/report-issue", query: {id: intId}}}> */}
         <NextLink href={{pathname:"/project/report-issue", query: {id: intId}}}  >
           <Button ml={4} mt={2} size="lg" bgColor="red.300">Report a bug</Button>
         </NextLink>
+        {/* </ChakraLink> */}
       </Flex>
       <Flex mx="auto" mt={5} w={1300}>
         <Text mt={2.5} color="gray.700" fontSize={18}>
@@ -68,13 +69,12 @@ const Project = () => {
         </Box>
       </Flex>
       
-      <Tabs mx="auto" mt={6} w={1300}>
-        <TabList >
-          <Tab>Open</Tab>
-          <Tab>Closed</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
+      <Tabs.Root mx="auto" mt={6} w={1300}>
+        <Tabs.List >
+          <Tabs.Trigger>Open</Tabs.Trigger>
+          <Tabs.Trigger>Closed</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content>
           { !openIssues ? <div>loading..</div> : openIssues.map((i) => 
           // eslint-disable-next-line
             <Flex >
@@ -97,16 +97,31 @@ const Project = () => {
                 { i.title }
                 </Box>
                 <Spacer />
-                { i.priority === "low" ? <Tag colorScheme='green' fontWeight="bold">Low</Tag> : null}
-                { i.priority === "medium" ? <Tag colorScheme='yellow' fontWeight="bold">Medium</Tag> : null}
-                { i.priority === "high" ? <Tag colorScheme='red' fontWeight="bold">High</Tag> : null}
+                { i.priority === "low" 
+                  ? <Tag.Root colorScheme='green' fontWeight="bold">
+                      <Tag.Label>Low</Tag.Label>
+                    </Tag.Root> 
+                  : null
+                }
+                { i.priority === "medium" 
+                  ? <Tag.Root colorScheme='yellow' fontWeight="bold">
+                      <Tag.Label>Medium</Tag.Label>
+                    </Tag.Root> 
+                    : null
+                }
+                { i.priority === "high" 
+                  ? <Tag.Root colorScheme='red' fontWeight="bold">
+                      <Tag.Label>High</Tag.Label>
+                    </Tag.Root> 
+                  : null
+                }
                 </Flex>
               </Box>
               </NextLink>
             </Flex>
           )}
-          </TabPanel>
-          <TabPanel>
+        </Tabs.Content>
+        <Tabs.Content>
           
           { !closedIssues ? <div>loading..</div> : closedIssues.map((i) => 
           // eslint-disable-next-line
@@ -123,17 +138,15 @@ const Project = () => {
                 h="auto" 
                 borderWidth={2} 
                 textAlign="left"
-                textColor="gray.600"
               >
-                { i.title }
+                <Text color="gray.600">{ i.title }</Text>
                 
               </Box>
               </NextLink>
             </Flex>
           )}
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+        </Tabs.Content>
+      </Tabs.Root>
       <Box mx="auto" mt={6} w={1300}>
       
       </Box>

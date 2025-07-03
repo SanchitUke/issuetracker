@@ -1,15 +1,13 @@
 import React from 'react'
-import NavBar from './NavBar';
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import { Button, Field as ChakraField,  Input, Dialog, useDisclosure, CloseButton } from '@chakra-ui/react';
 import { useCreateProjectMutation } from '../graphql/generated/graphql';
 import { useApolloClient } from '@apollo/client';
 import { Field, Formik } from 'formik';
-import { toErrorMap } from '../utils/toErrorMap';
 
 
 const CreateProject: React.FC<{}> = ({}) => {
   const [createProject] = useCreateProjectMutation();
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { open, onOpen, onClose } = useDisclosure()
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
   const apolloClient = useApolloClient();
@@ -17,16 +15,18 @@ const CreateProject: React.FC<{}> = ({}) => {
   return (
     <>    
       <Button mt={2} size="lg" onClick={onOpen}>Create Project</Button>
-      <Modal
+      <Dialog.Root
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
-        isOpen={isOpen}
+        open={open}
         onClose={onClose}
       >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Create new project</ModalHeader>
-          <ModalCloseButton />
+        <Dialog.Backdrop />
+        <Dialog.Content>
+          <Dialog.Header>Create new project</Dialog.Header>
+          <Dialog.CloseTrigger>
+            <CloseButton size="sm" />
+          </Dialog.CloseTrigger>
           <Formik
           initialValues={{
             name: ""
@@ -38,9 +38,9 @@ const CreateProject: React.FC<{}> = ({}) => {
         >
           {({ handleSubmit, errors, touched, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
-              <ModalBody pb={6}>
-                <FormControl isInvalid={!!errors.name && touched.name}>
-                  <FormLabel htmlFor="name">Project name</FormLabel>
+              <Dialog.Body pb={6}>
+                <ChakraField.Root isInvalid={!!errors.name && touched.name}>
+                  <ChakraField.Label>Project name</ChakraField.Label>
                   <Field
                       as={Input}
                       id="name"
@@ -56,26 +56,26 @@ const CreateProject: React.FC<{}> = ({}) => {
                         return error;
                       }}
                     />
-                  <FormErrorMessage>{errors.name}</FormErrorMessage>
-                </FormControl>
-              </ModalBody>
-              <ModalFooter>
+                  <ChakraField.ErrorText>{errors.name}</ChakraField.ErrorText>
+                </ChakraField.Root>
+              </Dialog.Body>
+              <Dialog.Footer>
                 <Button 
                   type="submit" 
                   colorScheme='blue' 
                   mr={3} 
-                  isLoading={ isSubmitting }  
+                  loading={ isSubmitting }  
                   onClick={closeOnSave ? onClose : onOpen}
                 >
                   Save
                 </Button>
                 <Button  onClick={onClose}>Cancel</Button>
-              </ModalFooter>
+              </Dialog.Footer>
             </form>
           )}
           </Formik>
-        </ModalContent>
-      </Modal>
+        </Dialog.Content>
+      </Dialog.Root>
     </>
     
   );

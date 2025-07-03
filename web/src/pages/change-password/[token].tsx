@@ -1,4 +1,4 @@
-import { Flex, VStack, FormControl, FormLabel, Input, FormErrorMessage, Button, Box, Text } from "@chakra-ui/react";
+import { Flex, VStack, Field as ChakraField, Input, Button, Box } from "@chakra-ui/react";
 import { Formik, Field } from "formik";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -6,7 +6,7 @@ import { useState } from "react";
 import { toErrorMap } from "../../utils/toErrorMap";
 // import {withApollo} from "../../utils/withApollo";
 import { useChangePasswordMutation } from "../../graphql/generated/graphql";
-6
+
 
 const ChangePassword: NextPage/*<unknown, unknown>*/ = () => {
   const router = useRouter();
@@ -33,9 +33,9 @@ const ChangePassword: NextPage/*<unknown, unknown>*/ = () => {
           {({ handleSubmit, errors, touched, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
               <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={240}>
-                <VStack spacing={10} align="flex-start">
-                  <FormControl isInvalid={!!errors.newPassword && touched.newPassword}>
-                    <FormLabel htmlFor="password">New password</FormLabel>
+                <VStack gap={10} align="flex-start">
+                  <ChakraField.Root isInvalid={!!errors.newPassword && touched.newPassword}>
+                    <ChakraField.Label>New password</ChakraField.Label>
                     <Field
                       as={Input}
                       id="newPassword"
@@ -51,10 +51,10 @@ const ChangePassword: NextPage/*<unknown, unknown>*/ = () => {
                         return error;
                       }}
                     />
-                    <FormErrorMessage>{errors.newPassword}</FormErrorMessage>
-                  </FormControl>
+                    <ChakraField.ErrorText>{errors.newPassword}</ChakraField.ErrorText>
+                  </ChakraField.Root>
                   {tokenError ? <Box color="red">{tokenError}</Box> : null}
-                  <Button type="submit" colorScheme="purple" width="full" isLoading={ isSubmitting }>
+                  <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
                     Change Password
                   </Button>
                 </VStack>

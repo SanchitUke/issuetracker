@@ -1,9 +1,8 @@
-import { Box, Button, ChakraProvider, Container, Flex, Heading, Link, Text } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import { Box, Button, Flex, Link as ChakraLink, Text } from '@chakra-ui/react';
+import React from 'react';
 import NextLink from 'next/link';
 import { useLogoutMutation, useMeQuery } from '../graphql/generated/graphql';
 import { useApolloClient } from '@apollo/client';
-import { useIsAuth } from '../utils/useIsAuth';
 import { useRouter } from 'next/router';
 
 interface NavBarProps {
@@ -17,13 +16,11 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
   const [logout, {loading: logoutLoading}] = useLogoutMutation();
   return (
       <Flex bg="teal.400" p={2}>
-        <NextLink href={"/"}>
-          <Link>
+          <ChakraLink as={NextLink} href = '/'>
             <Text color="white" fontSize={25} ml="3" mt={2} fontWeight="bold" fontFamily="comic-sans">
               Issue Tracker
             </Text>
-          </Link>
-        </NextLink>
+          </ChakraLink>
         <Box ml="auto" p={2}>
         {(loading || !data?.me) ? (
           <div>loading</div>
@@ -36,8 +33,8 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
                 logout();
                 await apolloClient.resetStore();
               }}
-              variant="link" 
-              isLoading={logoutLoading}
+              variant="ghost" 
+              loading={logoutLoading}
             >
               logout
             </Button>

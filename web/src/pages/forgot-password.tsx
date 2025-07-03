@@ -1,13 +1,10 @@
 import { useApolloClient } from '@apollo/client';
-import { Flex, VStack, FormControl, FormLabel, Input, FormErrorMessage, Button, Text, Link, Box } from '@chakra-ui/react';
+import { Flex, VStack, Field as ChakraField, Input, Button, Box } from '@chakra-ui/react';
 import { Formik, Field } from 'formik';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
-import { toErrorMap } from '../utils/toErrorMap';
 // import {withApollo} from '../utils/withApollo';
 import { useForgotPasswordMutation } from '../graphql/generated/graphql';
-import login from './login';
 
 
 const ForgotPassword: React.FC<{}> = ({}) => {
@@ -31,9 +28,9 @@ const ForgotPassword: React.FC<{}> = ({}) => {
             ) : (
               <form onSubmit={handleSubmit}>
                 <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={240}>
-                  <VStack spacing={10} align="flex-start">
-                   <FormControl>
-                      <FormLabel htmlFor="email">Email Address</FormLabel>
+                  <VStack gap={10} align="flex-start">
+                   <ChakraField.Root>
+                      <ChakraField.Label>Email Address</ChakraField.Label>
                       <Field
                         as={Input}
                         id="email"
@@ -41,8 +38,8 @@ const ForgotPassword: React.FC<{}> = ({}) => {
                         type="email"
                         variant="filled"
                       />
-                    </FormControl>
-                    <Button type="submit" colorScheme="purple" width="full" isLoading={ isSubmitting }>
+                    </ChakraField.Root>
+                    <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
                       Reset Password
                     </Button>
                   </VStack>

@@ -1,4 +1,4 @@
-import { Box, Button, Center, Divider, Flex, Heading, HStack, Link, Spacer, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Heading, HStack, Link as ChakraLink, Separator, Spacer, Text } from "@chakra-ui/react";
 // import {withApollo} from "../utils/withApollo";
 import NavBar from "../components/NavBar";
 import { useMeQuery } from "../graphql/generated/graphql";
@@ -18,16 +18,16 @@ const Index = () => {
       <Flex bg="teal.400"  justify="center" h="980px" >
           <Text fontSize={120} pos="absolute" top={24}  fontFamily="comic-sans" color="white">Issue Tracker</Text>
           <Flex mt={10}>
-            <HStack spacing={5}>
-            <NextLink href='/login'>
-              <Button size="lg" height='57px' width='240px' fontSize={22} >Login</Button>
-            </NextLink> 
+            <HStack gap={5}>
+            <ChakraLink as={NextLink} href = '/login' _hover={{ textDecoration: 'none' }}>
+              <Button size="lg" height='57px' width='240px' fontSize={22} variant={"surface"} >Login</Button>
+            </ChakraLink>
             <Center height='80px'>
-              <Divider orientation='vertical' />
+              <Separator orientation='vertical' height="100%" />
             </Center>
-            <NextLink href='/register'>
-              <Button size="lg" height='57px' width='240px' fontSize={22}>Register</Button>
-            </NextLink>
+            <ChakraLink as={NextLink} href = '/register' _hover={{ textDecoration: 'none' }}>
+              <Button size="lg" height='57px' width='240px' fontSize={22} variant={"surface"} >Register</Button>
+            </ChakraLink>
             </HStack>
           </Flex>
       </Flex>

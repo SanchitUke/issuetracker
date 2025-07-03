@@ -1,4 +1,4 @@
-import { Box, Flex, VStack } from '@chakra-ui/react';
+import { Box, Flex, VStack, Link as ChakraLink } from '@chakra-ui/react';
 import React from 'react'
 import { useUserProjectsQuery } from '../graphql/generated/graphql';
 import NextLink from 'next/link'
@@ -13,13 +13,13 @@ const Projects: React.FC<ProjectsProps> = ({}) => {
     return (
         <>
             <Flex justify="center" mt={10} h={400}>
-            <VStack spacing={5}>
+            <VStack gap={5}>
 
             { !data ? <div>loading..</div> : data.userProjects.map((p) => 
             // eslint-disable-next-line
-                <NextLink href={'/project/[id].tsx'} as={`project/${p.id}`}>
+                <ChakraLink as={NextLink} href={`/project/${p.id}`}>
                     <Box as='button'  key={p.id} p={6} rounded="md" w={1000} h="auto" borderWidth={2}>{ p.name }</Box>
-                </NextLink>
+                </ChakraLink>
             )}
             </VStack>
             </Flex>

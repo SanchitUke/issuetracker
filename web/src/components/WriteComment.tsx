@@ -1,5 +1,5 @@
 import { useApolloClient } from '@apollo/client';
-import { FormControl, FormLabel, Input, FormErrorMessage, Button, Textarea } from '@chakra-ui/react';
+import { Field as ChakraField, Button, Textarea } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
 import React from 'react'
 import { useWriteCommentMutation } from '../graphql/generated/graphql';
@@ -20,7 +20,7 @@ const WriteComment: React.FC<{}> = () => {
     >
       {(props) => (
         <Form>
-          <FormControl isRequired>
+          <ChakraField.Root isRequired>
             <Field
               as={Textarea}
               placeholder="write..."
@@ -30,12 +30,12 @@ const WriteComment: React.FC<{}> = () => {
               variant="filled"
               w={1300}
             />
-          </FormControl>
+          </ChakraField.Root>
           <Button
             mt={3}
             
             colorScheme='teal'
-            isLoading={props.isSubmitting}
+            loading={props.isSubmitting}
             type='submit'
           >
             Post
