@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "CommonJS",
+    "module": "nodenext",
     "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
     "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "removeComments": true,
-    "noImplicitAny": true,
+    // "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,

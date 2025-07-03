@@ -59,7 +59,7 @@ export class IssueResolver {
         @Ctx() { req }: Mycontext
     ) {
         const issues = await this.issues({ req } as Mycontext);
-        let issue = null;
+        let issue: Issue | undefined;
         issues.forEach((i) => {
             if(i.title.includes(nameSnippet)) {
                 issue = i;

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Session, SessionData } from "express-session";
-import Redis from "ioredis";
+import type { RedisClientType } from 'redis';
 
 export type Mycontext = {
     req: Request & { 
@@ -10,7 +10,7 @@ export type Mycontext = {
             issueId: number 
         };
     };
-    redis: Redis;
+    redis: RedisClientType;
     res: Response ;
     //userLoader: ReturnType<typeof createUserLoader>;
     //updootLoader: ReturnType<typeof createUpdootLoader>;

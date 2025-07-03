@@ -1,10 +1,12 @@
 import React from 'react';
 // import { createClient, dedupExchange, fetchExchange, Provider } from 'urql';
-import { ChakraProvider } from '@chakra-ui/react';
 // import { cacheExchange } from '@urql/exchange-graphcache';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import createClient from '../utils/withApollo';
 // import apolloClient from '../../utils/withApollo';
+import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
+import { ThemeProvider } from "next-themes"
+import { AppProps } from "next/app"
 
 
 // const client = createClient({ url: "http://localhost:4000/graphql", 
@@ -15,17 +17,17 @@ import createClient from '../utils/withApollo';
 // });
 
 
-function MyApp({ Component, pageProps }: any) {
-  // const client = apolloClient();
+
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    // <Provider value={client}>
     <ApolloProvider client={createClient()}>
-      <ChakraProvider>
-        <Component {...pageProps} />
+      <ChakraProvider value={defaultSystem}>
+        <ThemeProvider attribute="class" disableTransitionOnChange>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </ChakraProvider>
-      </ApolloProvider>
-    //</Provider>
+    </ApolloProvider>
+
   )
 }
 
-export default MyApp

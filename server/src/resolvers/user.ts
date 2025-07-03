@@ -169,7 +169,12 @@ export class UserResolver  {
             return false;
         }
         const token = v4();
-        await redis.set(FORGET_PASSWORD_PREFIX + token, user.userId, 'EX', 1000 * 60 * 60 * 24 * 3); // 3 days
+        await redis.set(FORGET_PASSWORD_PREFIX + token, user.userId, {
+            expiration: {
+                type: "EX",
+                value: 1000 * 60 * 24 * 3 
+            }
+        }); // 3 days
         
         await sendEmail(
             email, 
