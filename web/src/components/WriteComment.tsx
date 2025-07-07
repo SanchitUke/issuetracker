@@ -20,7 +20,7 @@ const WriteComment: React.FC<{}> = () => {
     >
       {(props) => (
         <Form>
-          <ChakraField.Root isRequired>
+          <ChakraField.Root required>
             <Field
               as={Textarea}
               placeholder="write..."
@@ -33,8 +33,8 @@ const WriteComment: React.FC<{}> = () => {
           </ChakraField.Root>
           <Button
             mt={3}
-            
-            colorScheme='teal'
+            variant={"solid"}
+            colorPalette='teal'
             loading={props.isSubmitting}
             type='submit'
           >

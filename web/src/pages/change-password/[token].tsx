@@ -34,14 +34,14 @@ const ChangePassword: NextPage/*<unknown, unknown>*/ = () => {
             <form onSubmit={handleSubmit}>
               <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={240}>
                 <VStack gap={10} align="flex-start">
-                  <ChakraField.Root isInvalid={!!errors.newPassword && touched.newPassword}>
+                  <ChakraField.Root invalid={!!errors.newPassword && touched.newPassword}>
                     <ChakraField.Label>New password</ChakraField.Label>
                     <Field
                       as={Input}
                       id="newPassword"
                       name="newPassword"
                       type="password"
-                      variant="filled"
+                      variant="subtle"
                       validate={(value: any) => {
                         let error;
 
@@ -54,7 +54,7 @@ const ChangePassword: NextPage/*<unknown, unknown>*/ = () => {
                     <ChakraField.ErrorText>{errors.newPassword}</ChakraField.ErrorText>
                   </ChakraField.Root>
                   {tokenError ? <Box color="red">{tokenError}</Box> : null}
-                  <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
+                  <Button type="submit" colorPalette="teal" width="full" loading={ isSubmitting }>
                     Change Password
                   </Button>
                 </VStack>

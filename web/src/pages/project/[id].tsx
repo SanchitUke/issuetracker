@@ -54,7 +54,7 @@ const Project = () => {
         </ButtonGroup>
         {/* <ChakraLink as={NextLink} href ={{pathname:"/project/report-issue", query: {id: intId}}}> */}
         <NextLink href={{pathname:"/project/report-issue", query: {id: intId}}}  >
-          <Button ml={4} mt={2} size="lg" bgColor="red.300">Report a bug</Button>
+          <Button ml={4} mt={2} variant={"solid"} size="lg" bgColor="red.500">Report a bug</Button>
         </NextLink>
         {/* </ChakraLink> */}
       </Flex>
@@ -69,12 +69,12 @@ const Project = () => {
         </Box>
       </Flex>
       
-      <Tabs.Root mx="auto" mt={6} w={1300}>
+      <Tabs.Root mx="auto" mt={6} w={1300} defaultValue="open">
         <Tabs.List >
-          <Tabs.Trigger>Open</Tabs.Trigger>
-          <Tabs.Trigger>Closed</Tabs.Trigger>
+          <Tabs.Trigger value='open'>Open</Tabs.Trigger>
+          <Tabs.Trigger value='closed'>Closed</Tabs.Trigger>
         </Tabs.List>
-        <Tabs.Content>
+        <Tabs.Content value="open">
           { !openIssues ? <div>loading..</div> : openIssues.map((i) => 
           // eslint-disable-next-line
             <Flex >
@@ -97,20 +97,20 @@ const Project = () => {
                 { i.title }
                 </Box>
                 <Spacer />
-                { i.priority === "low" 
-                  ? <Tag.Root colorScheme='green' fontWeight="bold">
+                { i.priority?.toLowerCase() === "low" 
+                  ? <Tag.Root colorPalette='green' fontWeight="bold">
                       <Tag.Label>Low</Tag.Label>
                     </Tag.Root> 
                   : null
                 }
-                { i.priority === "medium" 
-                  ? <Tag.Root colorScheme='yellow' fontWeight="bold">
+                { i.priority?.toLowerCase() === "medium" 
+                  ? <Tag.Root colorPalette='yellow' fontWeight="bold">
                       <Tag.Label>Medium</Tag.Label>
                     </Tag.Root> 
                     : null
                 }
-                { i.priority === "high" 
-                  ? <Tag.Root colorScheme='red' fontWeight="bold">
+                { i.priority?.toLowerCase() === "high" 
+                  ? <Tag.Root colorPalette='red' fontWeight="bold">
                       <Tag.Label>High</Tag.Label>
                     </Tag.Root> 
                   : null
@@ -121,7 +121,7 @@ const Project = () => {
             </Flex>
           )}
         </Tabs.Content>
-        <Tabs.Content>
+        <Tabs.Content value="closed">
           
           { !closedIssues ? <div>loading..</div> : closedIssues.map((i) => 
           // eslint-disable-next-line
@@ -147,9 +147,6 @@ const Project = () => {
           )}
         </Tabs.Content>
       </Tabs.Root>
-      <Box mx="auto" mt={6} w={1300}>
-      
-      </Box>
     </>
   );
 };

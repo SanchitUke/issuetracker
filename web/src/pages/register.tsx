@@ -35,14 +35,14 @@ const Register: React.FC<registerProps> = ({}) => {
               <form onSubmit={handleSubmit}>
                 <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={240}>
                   <VStack gap={10} align="flex-start">
-                    <ChakraField.Root isInvalid={!!errors.username && touched.username}>
+                    <ChakraField.Root invalid={!!errors.username && touched.username}>
                       <ChakraField.Label >Username</ChakraField.Label>
                       <Field
                         as={Input}
                         id="username"
                         name="username"
                         type="username"
-                        variant="filled"
+                        variant="subtle"
                         validate={(value: any) => {
                           let error;
 
@@ -58,14 +58,14 @@ const Register: React.FC<registerProps> = ({}) => {
                       />
                       <ChakraField.ErrorText>{errors.username}</ChakraField.ErrorText>
                     </ChakraField.Root>
-                    <ChakraField.Root isInvalid={!!errors.email && touched.email}>
+                    <ChakraField.Root invalid={!!errors.email && touched.email}>
                       <ChakraField.Label>Email Address</ChakraField.Label>
                       <Field
                         as={Input}
                         id="email"
                         name="email"
                         type="email"
-                        variant="filled"
+                        variant="subtle"
                         validate={(value: any) => {
                           let error;
 
@@ -78,14 +78,14 @@ const Register: React.FC<registerProps> = ({}) => {
                       />
                       <ChakraField.ErrorText>{errors.email}</ChakraField.ErrorText>
                     </ChakraField.Root>
-                    <ChakraField.Root isInvalid={!!errors.password && touched.password}>
+                    <ChakraField.Root invalid={!!errors.password && touched.password}>
                       <ChakraField.Label>Password</ChakraField.Label>
                       <Field
                         as={Input}
                         id="password"
                         name="password"
                         type="password"
-                        variant="filled"
+                        variant="subtle"
                         validate={(value: any) => {
                           let error;
 
@@ -98,7 +98,7 @@ const Register: React.FC<registerProps> = ({}) => {
                       />
                       <ChakraField.ErrorText>{errors.password}</ChakraField.ErrorText>
                     </ChakraField.Root>
-                    <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
+                    <Button type="submit" colorPalette="teal" width="full" loading={ isSubmitting }>
                       Submit
                     </Button>
                   </VStack>

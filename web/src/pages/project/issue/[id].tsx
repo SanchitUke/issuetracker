@@ -6,7 +6,7 @@ import WriteComment from '../../../components/WriteComment';
 import { useCloseIssueMutation, useIssueQuery, useMeQuery, useWriteCommentMutation } from '../../../graphql/generated/graphql';
 // import { withApollo } from '../../../utils/withApollo';
 import { FaRegCircleCheck } from "react-icons/fa6";
-
+import { AiOutlineExclamationCircle } from "react-icons/ai";
 
 const Issue = () => {
   const router = useRouter();
@@ -34,13 +34,10 @@ const Issue = () => {
         <Spacer />
         { data.issue.status === "open" 
         ? (meData?.me?.userId === data.issue.project.ownerId) 
-          ? <Button size="lg" onClick={() => closeIssue()}> <FaRegCircleCheck color="green" /> Close Issue</Button>
+          ? <Button size="lg" variant={"surface"} onClick={() => closeIssue()}> <FaRegCircleCheck color="green" /> Close Issue</Button>
           : <Button size="lg" variant="outline" fontWeight="bold" >
-              <Icon viewBox='0 0 200 200' color='red.500' mr={1} my="auto" >
-                <path
-                  fill='currentColor'
-                  d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
-                />
+              <Icon  color='red.500' mr={1} my="auto" >
+                <AiOutlineExclamationCircle/>
               </Icon>
               Open
             </Button>

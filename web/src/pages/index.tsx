@@ -15,7 +15,7 @@ const Index = () => {
   if(!data?.me) {
     body = (
       <>
-      <Flex bg="teal.400"  justify="center" h="980px" >
+      <Flex bg="teal.500"  justify="center" h="980px" >
           <Text fontSize={120} pos="absolute" top={24}  fontFamily="comic-sans" color="white">Issue Tracker</Text>
           <Flex mt={10}>
             <HStack gap={5}>
@@ -43,7 +43,7 @@ const Index = () => {
     body = (
       <>
           <NavBar />
-          <Flex mx="auto" mt={5} w={1000}>          
+          <Flex mx="15%" mt={5} >          
             <Heading fontSize={45} >Projects</Heading>
             <Spacer />
             <CreateProject />

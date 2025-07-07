@@ -36,30 +36,30 @@ const Login: React.FC<{}> = ({}) => {
             <form onSubmit={handleSubmit}>
               <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={240}>
                 <VStack gap={10} align="flex-start">
-                  <ChakraField.Root isInvalid={!!errors.usernameOrEmail && touched.usernameOrEmail}>
+                  <ChakraField.Root invalid={!!errors.usernameOrEmail && touched.usernameOrEmail}>
                     <ChakraField.Label>Username or Email ID</ChakraField.Label>
                     <Field
                       as={Input}
                       id="usernameOrEmail"
                       name="usernameOrEmail"
                       type="username"
-                      variant="filled"
+                      variant="subtle"
                     />
                     <ChakraField.ErrorText>{errors.usernameOrEmail}</ChakraField.ErrorText>
                   </ChakraField.Root>
-                  <ChakraField.Root isInvalid={!!errors.password && touched.password}>
+                  <ChakraField.Root invalid={!!errors.password && touched.password}>
                     <ChakraField.Label>Password</ChakraField.Label>
                     <Field
                       as={Input}
                       id="password"
                       name="password"
                       type="password"
-                      variant="filled"
+                      variant="subtle"
                     />
                     <ChakraField.ErrorText>{errors.password}</ChakraField.ErrorText>
                   </ChakraField.Root>
                   <ChakraLink as={NextLink} href = '/forgot-password'>Forgot Password?</ChakraLink>
-                  <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
+                  <Button type="submit" colorPalette="teal" width="full" loading={ isSubmitting }>
                     Submit
                   </Button>
                 </VStack>

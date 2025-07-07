@@ -1,7 +1,7 @@
-import { Flex, VStack, Field as ChakraField, Input, Button, Text, Box, Link, Textarea, Select } from '@chakra-ui/react';
+import { Flex, VStack, Field as ChakraField, Input, Button, Box, Textarea, Select, createListCollection, Portal, Heading  } from '@chakra-ui/react';
 import { Formik, Field } from 'formik';
 import { useRouter } from 'next/router';
-import React from 'react'
+import React, { useState } from 'react'
 import { toErrorMap } from '../../utils/toErrorMap';
 // import { withApollo } from '../../utils/withApollo';
 import login from '../login';
@@ -14,6 +14,7 @@ const ReportIssue: React.FC<{}> = () => {
   const router = useRouter();
   const [createIssue] = useCreateIssueMutation();
   const {data} = useUserProjectsQuery();
+  const [issuePriority, setIssuePriority] = useState("")
   const intId = typeof router.query.id === "string" ? parseInt(router.query.id) : -1;
   let invalidAccess = true;
   data?.userProjects.forEach((up) => {
@@ -33,7 +34,9 @@ const ReportIssue: React.FC<{}> = () => {
     );
   }
   return (
-    <Flex bg="gray.100"  justify="center" h="980px" >
+    <Flex bg="gray.100"  justify="center" h="980px">
+      <VStack  mt={'20'}>
+        <Heading fontSize={45}>Report Issue</Heading>
         <Formik
           initialValues={{
             title: "",
@@ -41,11 +44,12 @@ const ReportIssue: React.FC<{}> = () => {
             priority: ""
           }}
           onSubmit={ async (values) => {
+            
             const response =  await createIssue({ variables:{
               id: intId,
               title: values.title,
               text: values.text,
-              priority: values.priority
+              priority: issuePriority
             }});
             if(!response.data?.createIssue) {
               router.push("/");
@@ -57,16 +61,16 @@ const ReportIssue: React.FC<{}> = () => {
         >
           {({ handleSubmit, errors, touched, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
-              <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={240}>
+              <Box bg="white" p={6} rounded="md" w={80} h="auto" mt={20}>
                 <VStack gap={10} align="flex-start">
-                  <ChakraField.Root isRequired>
+                  <ChakraField.Root required>
                     <ChakraField.Label>Title</ChakraField.Label>
                     <Field
                       as={Input}
                       id="title"
                       name="title"
                       type="title"
-                      variant="filled"
+                      variant="subtle"
                     />
                   </ChakraField.Root>
                   <ChakraField.Root >
@@ -76,26 +80,43 @@ const ReportIssue: React.FC<{}> = () => {
                       id="text"
                       name="text"
                       type="text"
-                      variant="filled"
+                      variant="subtle"
                     />
                   </ChakraField.Root>
-                  <ChakraField.Root isRequired>
-                    <ChakraField.Label>Priority</ChakraField.Label>
-                    <Field
-                      as={Select}
-                      id="priority"
-                      name="priority"
-                      type="priority"
-                      variant="filled"
-                      placeholder="select"
-                    >
-                      <option>low</option>
-                      <option>medium</option>
-                      <option>high</option>
-                    </Field>
-                      
+                  <ChakraField.Root>
+                  <Select.Root 
+                    id="priority" 
+                    name="priority" 
+                    collection={priorities} 
+                    variant={"subtle"} 
+                    onChange={(e:any) => setIssuePriority(e.target.value)}
+                  >
+                    <Select.HiddenSelect />
+                    <Select.Label>Select priority</Select.Label>
+                    <Select.Control>
+                      <Select.Trigger>
+                        <Select.ValueText key={"Select"} />
+                      </Select.Trigger>
+                      <Select.IndicatorGroup>
+                        <Select.Indicator />
+                      </Select.IndicatorGroup>
+                    </Select.Control>
+                    <Portal>
+                      <Select.Positioner>
+                        <Select.Content >
+                          {priorities.items.map((priority: any) => (
+                            <Select.Item  item={priority} key={priority.value}>
+                              {priority.label}
+                              <Select.ItemIndicator />
+                            </Select.Item>
+                          ))}
+                        </Select.Content>
+                      </Select.Positioner>
+                    </Portal>
+                  </Select.Root>
+                  {/* <ChakraField.ErrorText>This is an error</ChakraField.ErrorText> */}
                   </ChakraField.Root>
-                  <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
+                  <Button type="submit" colorPalette={"teal"} width="full" loading={ isSubmitting }>
                     Submit
                   </Button>
                 </VStack>
@@ -103,8 +124,17 @@ const ReportIssue: React.FC<{}> = () => {
             </form>
           )}
         </Formik>
+        </VStack>
     </Flex>
   );
 };
 
 export default /*withApollo()(*/ReportIssue//);
+
+const priorities = createListCollection({
+  items: [
+    { label: "High", value: "High" },
+    { label: "Medium", value: "Medium" },
+    { label: "Low", value: "Low" },
+  ],
+})

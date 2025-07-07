@@ -36,10 +36,10 @@ const ForgotPassword: React.FC<{}> = ({}) => {
                         id="email"
                         name="email"
                         type="email"
-                        variant="filled"
+                        variant="subtle"
                       />
                     </ChakraField.Root>
-                    <Button type="submit" colorScheme="purple" width="full" loading={ isSubmitting }>
+                    <Button type="submit" colorPalette="teal" width="full" loading={ isSubmitting }>
                       Reset Password
                     </Button>
                   </VStack>

@@ -8,6 +8,12 @@ export async function sendEmail(to: string, subject: string, html: string) {
   // console.log('testAccount', testAccount);
 
   // create reusable transporter object using the default SMTP transport
+  const nodeEnv = process.env.NODE_ENV
+  const sendMailEnv = process.env.SEND_MAIL
+  if(nodeEnv == 'development' || !sendMailEnv || sendMailEnv === 'false') {
+    console.log("Not using NodeMailer. Either running in development mode or disabled")
+    return
+  }
   let transporter = nodemailer.createTransport({
     name: "smtp.ethereal.email",
     host: "smtp.ethereal.email",
